@@ -1,18 +1,18 @@
 package br.com.bankaccountapi.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @NotNull
     @Pattern(regexp = "[a-zA-Z ]{1,50}",message="")
@@ -24,24 +24,33 @@ public class Account {
     @Pattern(regexp = "\\d{1,8}",message="Only digits on account code!")
     private String accountCode;
 
-    @Pattern(regexp = "\\d{0,1}",message="Only digits on verification digital!")
+    @Pattern(regexp = "\\d{1}",message="Only digits on verification digital!")
     private String verificationDigital;
 
-    public Account() { }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    // @JoinColumn(name = "processo_reus_id")
+    private List<Card> cards;
 
-    public Account(String nameOwner, String agencyCode, String accountCode, String verificationDigital) {
+
+    public Account() {
+        cards = new ArrayList<>();
+    }
+
+    public Account(String nameOwner, String agencyCode, String accountCode,
+                   String verificationDigital, List<Card> cards) {
         this.nameOwner = nameOwner;
         this.agencyCode = agencyCode;
         this.accountCode = accountCode;
         this.verificationDigital = verificationDigital;
+        this.cards = cards == null ? new ArrayList<>() : cards;
     }
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -76,4 +85,17 @@ public class Account {
     public void setVerificationDigital(String verificationDigital) {
         this.verificationDigital = verificationDigital;
     }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
+    }
+
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
 }

@@ -2,10 +2,7 @@ package br.com.bankaccountapi.models;
 
 import br.com.bankaccountapi.enums.Flag;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -17,13 +14,17 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @NotNull
     @Pattern(regexp = "[a-zA-Z ]{1,128}",message="")
     private String name;
 
     private Flag flag;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "tyoe_id", referencedColumnName = "id")
+    private Type typeCard;
 
     @Pattern(regexp = "\\d{4}\\.\\d{4}\\. \\d{4}\\.\\d{4}",message="")
     private String number;
@@ -35,6 +36,9 @@ public class Card {
     @Digits(integer=20, fraction=2)
     private BigDecimal limitBalance;
 
+    @ManyToOne
+    private Account account;
+
     public Card() { }
 
     public Card(String name, Flag flag, String number, String digitCode, BigDecimal limitBalance) {
@@ -45,11 +49,11 @@ public class Card {
         this.limitBalance = limitBalance;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -92,4 +96,13 @@ public class Card {
     public void setLimitBalance(BigDecimal limitBalance) {
         this.limitBalance = limitBalance;
     }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
 }
