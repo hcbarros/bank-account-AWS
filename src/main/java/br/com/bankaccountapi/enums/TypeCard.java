@@ -12,11 +12,11 @@ public enum TypeCard {
     @JsonCreator
     public static TypeCard fromString(String name) {
         for(TypeCard type : TypeCard.values()) {
-            if(name.toUpperCase().contains(type.name().substring(0, 3))) {
+            if(name.toUpperCase().contains(type.name().substring(0, 4))) {
                 return type;
             }
         }
-        throw new RuntimeException("Type card not found!");
+        return null;
     }
 
 }

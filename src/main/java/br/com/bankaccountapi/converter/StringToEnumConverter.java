@@ -8,6 +8,11 @@ public class StringToEnumConverter<T extends Enum> implements Converter<String, 
 
     @Override
     public T convert(String source) {
-        return (T) Enum.valueOf(classe, source.toUpperCase());
+        try {
+            return (T) Enum.valueOf(classe, source.toUpperCase());
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 }

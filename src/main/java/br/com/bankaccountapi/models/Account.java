@@ -15,16 +15,19 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "NameOwner is mandatory")
     @Pattern(regexp = "[a-zA-Z ]{1,50}",message="")
     private String nameOwner;
 
+    @NotNull(message = "AgencyCode is mandatory")
     @Pattern(regexp = "\\d{4}",message="Only digits on agency code!")
     private String agencyCode;
 
+    @NotNull(message = "AccountCode is mandatory")
     @Pattern(regexp = "\\d{8}",message="Only digits on account code!")
     private String accountCode;
 
+    @NotNull(message = "VerificationDigital is mandatory")
     @Pattern(regexp = "\\d{1}",message="Only digits on verification digital!")
     private String verificationDigital;
 
@@ -97,6 +100,10 @@ public class Account implements Serializable {
 
     public void addCard(Card card) {
         cards.add(card);
+    }
+
+    public boolean removeCard(Card card) {
+        return cards.remove(card);
     }
 
 }

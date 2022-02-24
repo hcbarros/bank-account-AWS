@@ -15,7 +15,7 @@ public enum Flag {
                 return flag;
             }
         }
-        throw new RuntimeException("Flag not found!");
+        return null;
     }
 
 }

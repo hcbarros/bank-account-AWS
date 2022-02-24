@@ -21,11 +21,12 @@ public class Card implements Serializable {
     @Pattern(regexp = "[a-zA-Z ]{1,128}",message="")
     private String name;
 
+    @NotNull(message = "Flag not found!")
     private Flag flag;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "tyoe_id", referencedColumnName = "id")
-    private Type typeCard;
+    private Type type;
 
     @Pattern(regexp = "\\d{4}\\.\\d{4}\\. \\d{4}\\.\\d{4}",message="")
     private String number;
@@ -42,9 +43,10 @@ public class Card implements Serializable {
 
     public Card() { }
 
-    public Card(String name, Flag flag, String number, String digitCode, BigDecimal limitBalance) {
+    public Card(String name, Flag flag, Type type, String number, String digitCode, BigDecimal limitBalance) {
         this.name = name;
         this.flag = flag;
+        this.type = type;
         this.number = number;
         this.digitCode = digitCode;
         this.limitBalance = limitBalance;
@@ -72,6 +74,14 @@ public class Card implements Serializable {
 
     public void setFlag(Flag flag) {
         this.flag = flag;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public String getNumber() {

@@ -1,22 +1,22 @@
 package br.com.bankaccountapi.controllers.response;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ResponseError {
 
-    private List<String> erros;
+    private List<String> errors;
 
-    public ResponseError(List<String> erros) {
-        super();
-        this.erros = erros;
+    public ResponseError(List<String> errors) {
+        this.errors = errors;
     }
 
-    public List<String> getErros() {
-        return erros;
+    public ResponseError(String error) {
+        this.errors = Arrays.asList(error);
     }
 
-    public void setErros(List<String> erros) {
-        this.erros = erros;
+    public List<String> getErrors() {
+        return errors;
     }
 
 }

@@ -1,12 +1,14 @@
 package br.com.bankaccountapi.controllers;
 
 import br.com.bankaccountapi.models.Account;
+import br.com.bankaccountapi.models.Card;
 import br.com.bankaccountapi.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,16 +33,23 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<Account> save(@RequestBody Account account) {
+    public ResponseEntity<Account> save(@Valid @RequestBody Account account) {
         Account ac = service.save(account);
         return new ResponseEntity<>(ac, HttpStatus.CREATED);
     }
 
     @PutMapping("/edit/{id}")
     public ResponseEntity<Account> edit(@PathVariable("id") Integer id,
-                                        @RequestBody Account account) {
+                                        @Valid @RequestBody Account account) {
         Account ac = service.edit(id, account);
         return new ResponseEntity<>(ac, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/addcard/{id}")
+    public ResponseEntity<Account> addCard(@PathVariable("id") Integer id,
+                                           @Valid @RequestBody Card card) {
+        Account ac = service.addCard(id, card);
+        return new ResponseEntity<Account>(ac, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

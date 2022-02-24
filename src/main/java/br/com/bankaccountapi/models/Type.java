@@ -3,6 +3,7 @@ package br.com.bankaccountapi.models;
 import br.com.bankaccountapi.enums.TypeCard;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Type {
@@ -11,6 +12,7 @@ public class Type {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull(message = "Type card not found!")
     private TypeCard typeCard;
 
     public Type() { }
