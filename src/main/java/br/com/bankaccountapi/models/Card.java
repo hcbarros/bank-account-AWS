@@ -7,10 +7,11 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-public class Card {
+public class Card implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,15 +30,15 @@ public class Card {
     @Pattern(regexp = "\\d{4}\\.\\d{4}\\. \\d{4}\\.\\d{4}",message="")
     private String number;
 
-    @Pattern(regexp = "\\d{2,5}",message="Digit code should be max size 5 and min size 2!")
+    @Pattern(regexp = "\\d{3,5}",message="Digit code should be max size 5 and min size 2!")
     private String digitCode;
 
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer=20, fraction=2)
     private BigDecimal limitBalance;
 
-    @ManyToOne
-    private Account account;
+//    @ManyToOne
+//    private Account account;
 
     public Card() { }
 
@@ -97,12 +98,12 @@ public class Card {
         this.limitBalance = limitBalance;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
+//    public void setAccount(Account account) {
+//        this.account = account;
+//    }
+//
+//    public Account getAccount() {
+//        return account;
+//    }
 
 }

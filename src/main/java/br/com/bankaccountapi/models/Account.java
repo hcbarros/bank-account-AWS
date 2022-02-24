@@ -3,12 +3,13 @@ package br.com.bankaccountapi.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Entity
-public class Account {
+public class Account implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,17 +19,17 @@ public class Account {
     @Pattern(regexp = "[a-zA-Z ]{1,50}",message="")
     private String nameOwner;
 
-    @Pattern(regexp = "\\d{1,4}",message="Only digits on agency code!")
+    @Pattern(regexp = "\\d{4}",message="Only digits on agency code!")
     private String agencyCode;
 
-    @Pattern(regexp = "\\d{1,8}",message="Only digits on account code!")
+    @Pattern(regexp = "\\d{8}",message="Only digits on account code!")
     private String accountCode;
 
     @Pattern(regexp = "\\d{1}",message="Only digits on verification digital!")
     private String verificationDigital;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    // @JoinColumn(name = "processo_reus_id")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "card_id", referencedColumnName = "id")
     private List<Card> cards;
 
 

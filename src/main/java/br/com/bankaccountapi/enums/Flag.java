@@ -1,18 +1,21 @@
 package br.com.bankaccountapi.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum Flag {
 
-    MASTERCARD("Mastercard"),
-    VISA("Visa"),
-    ELO("Elo");
+    MASTERCARD,
+    VISA,
+    ELO;
 
-    private String name;
-
-    Flag(String name) {
-        this.name = name;
+    @JsonCreator
+    public static Flag fromString(String name) {
+        for(Flag flag : Flag.values()) {
+            if(flag.name().equalsIgnoreCase(name)) {
+                return flag;
+            }
+        }
+        throw new RuntimeException("Flag not found!");
     }
 
-    public String getName() {
-        return name;
-    }
 }

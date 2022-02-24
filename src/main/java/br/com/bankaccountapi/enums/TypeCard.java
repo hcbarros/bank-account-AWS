@@ -1,19 +1,22 @@
 package br.com.bankaccountapi.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum TypeCard {
 
-    DEBIT_CARD("Debit card"),
-    CREDIT_CARD("Credit card"),
-    MEAL_CARD("Real card"),
-    GIFT_CARD("Gift card");
+    DEBIT_CARD,
+    CREDIT_CARD,
+    MEAL_CARD,
+    GIFT_CARD;
 
-    private String name;
-
-    TypeCard(String name) {
-        this.name = name;
+    @JsonCreator
+    public static TypeCard fromString(String name) {
+        for(TypeCard type : TypeCard.values()) {
+            if(name.toUpperCase().contains(type.name().substring(0, 3))) {
+                return type;
+            }
+        }
+        throw new RuntimeException("Type card not found!");
     }
 
-    public String getName() {
-        return name;
-    }
 }
