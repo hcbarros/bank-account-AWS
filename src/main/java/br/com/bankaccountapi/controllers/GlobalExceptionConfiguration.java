@@ -61,13 +61,8 @@ public class GlobalExceptionConfiguration extends ResponseEntityExceptionHandler
             HttpStatus status,
             WebRequest request) {
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(ex.getMethod());
-        builder.append(" method is not supported for this request. Supported methods are ");
-        ex.getSupportedHttpMethods().forEach(t -> builder.append(t + " "));
-
-        return new ResponseEntity<Object>(new ResponseError(builder.toString()),
-                HttpStatus.METHOD_NOT_ALLOWED);
+        String resp = ex.getMethod() + " method is not supported for this request.";
+        return new ResponseEntity<Object>(new ResponseError(resp), HttpStatus.METHOD_NOT_ALLOWED);
     }
 
 

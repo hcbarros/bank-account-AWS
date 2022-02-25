@@ -22,11 +22,8 @@ public class DataLoader {
 
         return args -> {
 
-            //String name, Flag flag, String number, String digitCode, BigDecimal limitBalance
-
             Card card = new Card("Henrique B", Flag.VISA, new Type(TypeCard.CREDIT_CARD),
                     "4568.1279. 2648.2965", "482", new BigDecimal("45682156921"));
-
 
             Account account = new Account("Henrique Barros", "1234",
                     "45678458", "0", Arrays.asList(card));

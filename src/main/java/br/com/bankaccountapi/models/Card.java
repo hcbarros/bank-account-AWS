@@ -17,25 +17,30 @@ public class Card implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "Name card is mandatory")
     @Pattern(regexp = "[a-zA-Z ]{1,128}",message="")
     private String name;
 
     @NotNull(message = "Flag not found!")
     private Flag flag;
 
+    @NotNull(message = "Type card is mandatory")
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "tyoe_id", referencedColumnName = "id")
     private Type type;
 
+    @NotNull(message = "Number card is mandatory")
     @Pattern(regexp = "\\d{4}\\.\\d{4}\\. \\d{4}\\.\\d{4}",message="")
     private String number;
 
+    @NotNull(message = "DigitCode is mandatory")
     @Pattern(regexp = "\\d{3,5}",message="Digit code should be max size 5 and min size 2!")
     private String digitCode;
 
+    @NotNull(message = "LimitBalance is mandatory")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer=20, fraction=2)
+    @Digits(message = "Balance limit must have a maximum of 20 integers and a maximum decimal fraction of 2 digits.",
+            integer=20, fraction=2)
     private BigDecimal limitBalance;
 
 //    @ManyToOne

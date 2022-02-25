@@ -45,14 +45,20 @@ public class AccountService {
     public Account addCard(Integer id, Card card) {
         boolean exists = cardRepository.existsByNumberAndType_TypeCard(card.getNumber(), card.getType().getTypeCard());
         if(exists) {
-            throw new RuntimeException("There is already a card registered with this number!");
+            throw new RuntimeException("There is already a card registered with this number and this flag!");
         }
         Account account = findById(id);
         account.addCard(card);
         return save(account);
     }
 
+
     public void delete(Integer id) {
+        Account account = findById(id);
+        if(!account.getCards().isEmpty()) {
+            throw new RuntimeException(
+                    "It is not possible to delete this account. There is still a card associated with it.!");
+        }
         accountRepository.deleteById(id);
     }
 
