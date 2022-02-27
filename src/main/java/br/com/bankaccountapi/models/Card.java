@@ -2,7 +2,13 @@ package br.com.bankaccountapi.models;
 
 import br.com.bankaccountapi.enums.Flag;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -18,33 +24,32 @@ public class Card implements Serializable {
     private Integer id;
 
     @NotNull(message = "Name card is mandatory")
-    @Pattern(regexp = "[a-zA-Z ]{1,128}",message="")
+    @Pattern(regexp = "[a-zA-Z ]{1,128}",message="Name on card must be between 1 and 128 letters.")
     private String name;
 
-    @NotNull(message = "Flag not found!")
+    @NotNull(message = "Flag name not registered!")
     private Flag flag;
 
     @NotNull(message = "Type card is mandatory")
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "tyoe_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "type_id", referencedColumnName = "id")
     private Type type;
 
     @NotNull(message = "Number card is mandatory")
-    @Pattern(regexp = "\\d{4}\\.\\d{4}\\. \\d{4}\\.\\d{4}",message="")
+    @Pattern(regexp = "\\d{4}\\.\\d{4}\\. \\d{4}\\.\\d{4}",
+            message="Card number must have the following format: 9999.9999. 9999.9999")
     private String number;
 
     @NotNull(message = "DigitCode is mandatory")
-    @Pattern(regexp = "\\d{3,5}",message="Digit code should be max size 5 and min size 2!")
+    @Pattern(regexp = "\\d{3,5}",message="Digit code must be max size 5 and min size 3!")
     private String digitCode;
 
     @NotNull(message = "LimitBalance is mandatory")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(message = "Balance limit must have a maximum of 20 integers and a maximum decimal fraction of 2 digits.",
+    @Digits(message = "Limit balance must have a maximum of 20 integers and a maximum decimal fraction of 2 digits.",
             integer=20, fraction=2)
     private BigDecimal limitBalance;
 
-//    @ManyToOne
-//    private Account account;
 
     public Card() { }
 

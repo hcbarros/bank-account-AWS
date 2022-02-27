@@ -1,5 +1,8 @@
 package br.com.bankaccountapi.services;
 
+import br.com.bankaccountapi.exceptions.ExistsAccountByAccountCode;
+import br.com.bankaccountapi.exceptions.ExistsCardAssociatedWithAccount;
+import br.com.bankaccountapi.exceptions.ExistsCardByNumberAndFlagException;
 import br.com.bankaccountapi.models.Account;
 import br.com.bankaccountapi.models.Card;
 import br.com.bankaccountapi.repositories.AccountRepository;
@@ -20,22 +23,29 @@ public class AccountService {
     private CardRepository cardRepository;
 
     public Account save(Account account) {
+        boolean exists = accountRepository.existsByAccountCode(account.getAccountCode());
+        if(exists) {
+            throw new ExistsAccountByAccountCode();
+        }
         return accountRepository.save(account);
     }
 
     public Account edit(Integer id, Account account) {
         Account ac = findById(id);
-        ac.setCards(account.getCards());
+        boolean exists = accountRepository.existsByAccountCode(account.getAccountCode());
+        if(ac.getAccountCode() != account.getAccountCode() && exists) {
+            throw new ExistsAccountByAccountCode();
+        }
         ac.setAccountCode(account.getAccountCode());
         ac.setAgencyCode(account.getAgencyCode());
         ac.setNameOwner(account.getNameOwner());
         ac.setVerificationDigital(account.getVerificationDigital());
-        return save(ac);
+        return accountRepository.save(ac);
     }
 
     public Account findById(Integer id) {
         return accountRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Account not found!"));
+                .orElseThrow(() -> new EntityNotFoundException("No account was found with id "+id));
     }
 
     public List<Account> findAll() {
@@ -45,19 +55,18 @@ public class AccountService {
     public Account addCard(Integer id, Card card) {
         boolean exists = cardRepository.existsByNumberAndType_TypeCard(card.getNumber(), card.getType().getTypeCard());
         if(exists) {
-            throw new RuntimeException("There is already a card registered with this number and this flag!");
+            throw new ExistsCardByNumberAndFlagException();
         }
         Account account = findById(id);
         account.addCard(card);
-        return save(account);
+        return accountRepository.save(account);
     }
 
 
     public void delete(Integer id) {
         Account account = findById(id);
         if(!account.getCards().isEmpty()) {
-            throw new RuntimeException(
-                    "It is not possible to delete this account. There is still a card associated with it.!");
+            throw new ExistsCardAssociatedWithAccount();
         }
         accountRepository.deleteById(id);
     }

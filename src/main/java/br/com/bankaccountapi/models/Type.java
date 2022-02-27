@@ -4,15 +4,16 @@ import br.com.bankaccountapi.enums.TypeCard;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
-public class Type {
+public class Type implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "Type card not found!")
+    @NotNull(message = "Type card not registered!")
     private TypeCard typeCard;
 
     public Type() { }

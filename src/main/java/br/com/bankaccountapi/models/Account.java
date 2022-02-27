@@ -16,19 +16,19 @@ public class Account implements Serializable {
     private Integer id;
 
     @NotNull(message = "NameOwner is mandatory")
-    @Pattern(regexp = "[a-zA-Z ]{1,50}",message="")
+    @Pattern(regexp = "[a-zA-Z ]{1,50}",message="Name owner must be between 1 and 50 letters.")
     private String nameOwner;
 
     @NotNull(message = "AgencyCode is mandatory")
-    @Pattern(regexp = "\\d{4}",message="Only digits on agency code!")
+    @Pattern(regexp = "\\d{4}",message="agency code must be 4 digits!")
     private String agencyCode;
 
     @NotNull(message = "AccountCode is mandatory")
-    @Pattern(regexp = "\\d{8}",message="Only digits on account code!")
+    @Pattern(regexp = "\\d{8}",message="Account code must be 8 digits!")
     private String accountCode;
 
     @NotNull(message = "VerificationDigital is mandatory")
-    @Pattern(regexp = "\\d{1}",message="Only digits on verification digital!")
+    @Pattern(regexp = "\\d{1}",message="Verification digital must be 8 digits!")
     private String verificationDigital;
 
     @OneToMany(cascade = CascadeType.ALL)
