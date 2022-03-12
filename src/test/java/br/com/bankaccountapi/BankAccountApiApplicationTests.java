@@ -13,16 +13,16 @@ import org.junit.jupiter.api.Order;
 import org.springframework.http.ResponseEntity;
 
 
-@TestMethodOrder(OrderAnnotation.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class BankAccountApiApplicationTests {
+    @TestMethodOrder(OrderAnnotation.class)
+    @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+    class BankAccountApiApplicationTests {
 
-    @LocalServerPort
-    private int port;
+        @LocalServerPort
+        private int port;
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+        @Autowired
+        private TestRestTemplate restTemplate;
 
 
 
-}
+    }

@@ -3,6 +3,7 @@ package br.com.bankaccountapi.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -24,7 +25,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("br.com.bankaccountapi"))
-                .paths(regex("/api/v1.*"))
+                .paths(PathSelectors.any())
                 .build()
                 .apiInfo(metaInfo());
     }

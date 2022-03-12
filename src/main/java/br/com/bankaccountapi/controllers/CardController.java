@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Api(value="API REST cards")
 @RestController
-@RequestMapping(value = "api/v1/cards")
+@RequestMapping(value = "/api/v1/cards")
 public class CardController {
 
     @Autowired

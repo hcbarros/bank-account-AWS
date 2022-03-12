@@ -2,13 +2,7 @@ package br.com.bankaccountapi.models;
 
 import br.com.bankaccountapi.enums.Flag;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.OneToOne;
-import javax.persistence.JoinColumn;
-import javax.persistence.CascadeType;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -30,11 +24,6 @@ public class Card implements Serializable {
     @NotNull(message = "Flag name not registered!")
     private Flag flag;
 
-    @NotNull(message = "Type card is mandatory")
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "type_id", referencedColumnName = "id")
-    private Type type;
-
     @NotNull(message = "Number card is mandatory")
     @Pattern(regexp = "\\d{4}\\.\\d{4}\\. \\d{4}\\.\\d{4}",
             message="Card number must have the following format: 9999.9999. 9999.9999")
@@ -49,6 +38,11 @@ public class Card implements Serializable {
     @Digits(message = "Limit balance must have a maximum of 20 integers and a maximum decimal fraction of 2 digits.",
             integer=20, fraction=2)
     private BigDecimal limitBalance;
+
+    @NotNull(message = "Type card is mandatory")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "type_id", referencedColumnName = "id")
+    private Type type;
 
 
     public Card() { }

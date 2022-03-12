@@ -53,7 +53,8 @@ public class AccountService {
     }
 
     public Account addCard(Integer id, Card card) {
-        boolean exists = cardRepository.existsByNumberAndType_TypeCard(card.getNumber(), card.getType().getTypeCard());
+        boolean exists = cardRepository
+                .existsByNumberAndType_TypeCard(card.getNumber(), card.getType().getTypeCard());
         if(exists) {
             throw new ExistsCardByNumberAndFlagException();
         }
