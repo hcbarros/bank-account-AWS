@@ -2,6 +2,8 @@ package br.com.bankaccountapi.controllers;
 
 import javax.validation.Valid;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +19,7 @@ import br.com.bankaccountapi.services.auth.MessageResponse;
 import br.com.bankaccountapi.services.auth.SignupRequest;
 
 
+@Api(value="API REST aothentication")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -25,6 +28,7 @@ public class AuthController {
     private AuthService authService;
 
 
+    @ApiOperation(value="Authenticates a user and gives access to queries")
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(
             @Valid @RequestBody LoginRequest loginRequest) {
@@ -35,6 +39,7 @@ public class AuthController {
         return ResponseEntity.ok(jwtResponse);
     }
 
+    @ApiOperation(value="Register a user")
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(
             @Valid @RequestBody SignupRequest signupRequest) {

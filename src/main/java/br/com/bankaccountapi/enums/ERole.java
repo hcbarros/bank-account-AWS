@@ -1,4 +1,4 @@
-package br.com.bankaccountapi.models;
+package br.com.bankaccountapi.enums;
 
 public enum ERole {
 

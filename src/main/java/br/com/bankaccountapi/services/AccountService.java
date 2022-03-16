@@ -63,6 +63,9 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
+    public boolean existsByAccountCode(String accountCode) {
+        return accountRepository.existsByAccountCode(accountCode);
+    }
 
     public void delete(Integer id) {
         Account account = findById(id);

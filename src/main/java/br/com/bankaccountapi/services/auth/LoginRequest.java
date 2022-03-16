@@ -1,13 +1,18 @@
 package br.com.bankaccountapi.services.auth;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class LoginRequest {
 
-	@NotBlank(message = "O nome de usuário deve possuir algum valor!")
+	@NotBlank(message = "The username must have some value!")
+	@Size(min = 6, max = 100,
+			message = "The username must have a minimum of 6 and a maximum of 100 characters!")
 	private String username;
-	
-	@NotBlank(message = "A senha do usuário deve possuir algum valor!")
+
+	@NotBlank(message = "User password must have some value!")
+	@Size(min = 6, max = 100,
+			message = "The password must have a minimum of 6 and a maximum of 100 characters!")
 	private String password;
 	
 	public LoginRequest() { }

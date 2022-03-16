@@ -41,15 +41,13 @@ public class AccountController {
     public ResponseEntity<Account> findById(
             @PathVariable("id") Integer id) {
 
-
         Account account = service.findById(id);
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
     @ApiOperation(value="Return all accounts")
     @GetMapping
-    public ResponseEntity<Account> findAll(@RequestHeader("Authorization") HttpHeaders headers) {
-
+    public ResponseEntity<Account> findAll() {
 
         List<Account> accounts = service.findAll();
         return new ResponseEntity(accounts, HttpStatus.OK);

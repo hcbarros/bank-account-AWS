@@ -17,16 +17,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-
-import br.com.bankaccountapi.models.ERole;
+import br.com.bankaccountapi.enums.ERole;
 import br.com.bankaccountapi.models.Role;
 import br.com.bankaccountapi.models.User;
 import br.com.bankaccountapi.repositories.UserRepository;
 import br.com.bankaccountapi.security.JwtUtils;
 import br.com.bankaccountapi.security.UserDetailsImpl;
-import br.com.bankaccountapi.security.UserDetailsServiceImpl;
 
 @Service
 public class AuthService {

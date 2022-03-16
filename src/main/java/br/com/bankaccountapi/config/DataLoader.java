@@ -1,13 +1,12 @@
 package br.com.bankaccountapi.config;
 
+import br.com.bankaccountapi.enums.ERole;
 import br.com.bankaccountapi.enums.Flag;
 import br.com.bankaccountapi.enums.TypeCard;
 import br.com.bankaccountapi.models.*;
-import br.com.bankaccountapi.repositories.AccountRepository;
 import br.com.bankaccountapi.repositories.RoleRepository;
-import br.com.bankaccountapi.repositories.UserRepository;
+import br.com.bankaccountapi.services.AccountService;
 import br.com.bankaccountapi.services.auth.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,11 +19,9 @@ import java.util.Set;
 @Configuration
 public class DataLoader {
 
-    @Autowired
-    private AuthService authService;
-
     @Bean
-    CommandLineRunner baseLoad(AccountRepository accountRepository,
+    CommandLineRunner baseLoad(AuthService authService,
+                               AccountService accountService,
                                RoleRepository roleRepository) {
 
         return args -> {
@@ -35,7 +32,9 @@ public class DataLoader {
             Account account = new Account("Henrique Barros", "1234",
                     "45678458", "0", Arrays.asList(card));
 
-            accountRepository.save(account);
+            if(!accountService.existsByAccountCode("45678458")) {
+                accountService.save(account);
+            }
 
             Set<Role> roles = new HashSet<>();
             roles.addAll(Arrays.asList(new Role(ERole.USER), new Role(ERole.ADMIN)));

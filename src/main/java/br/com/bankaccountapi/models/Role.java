@@ -1,5 +1,7 @@
 package br.com.bankaccountapi.models;
 
+import br.com.bankaccountapi.enums.ERole;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
