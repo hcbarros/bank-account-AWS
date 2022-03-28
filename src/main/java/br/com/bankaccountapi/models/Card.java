@@ -25,7 +25,7 @@ public class Card implements Serializable {
     private Flag flag;
 
     @NotNull(message = "Number card is mandatory")
-    @Pattern(regexp = "\\d{4}\\.\\d{4}\\. \\d{4}\\.\\d{4}",
+    @Pattern(regexp = "\\d{4} \\d{4} \\d{4} \\d{4}",
             message="Card number must have the following format: 9999.9999. 9999.9999")
     private String number;
 

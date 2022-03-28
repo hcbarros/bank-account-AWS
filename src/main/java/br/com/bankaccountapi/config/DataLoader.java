@@ -29,7 +29,7 @@ public class DataLoader {
         return args -> {
 
             Card card = new Card("Henrique B", Flag.VISA, new Type(TypeCard.CREDIT_CARD),
-                    "4568.1279. 2648.2965", "482", new BigDecimal("45682156921"));
+                    "4568 1279 2648 2965", "482", new BigDecimal("45682156921"));
 
             Account account = new Account("Henrique Barros", "1234",
                     "45678458", "0", Arrays.asList(card));
@@ -52,7 +52,7 @@ public class DataLoader {
             if(!userRepository.existsByUsername("henrique")) {
                 authService.registerUser("henrique","henrique123", roleStrings);
             }
-            
+
         };
 
     }
