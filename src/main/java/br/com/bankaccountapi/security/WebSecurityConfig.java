@@ -76,7 +76,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 										"/v2/api-docs",
 										"/swagger-resources/**",
 										"/swagger-ui/**",
-										"/h2-console/**")
+										"/h2-console/**",
+						"/Projectbankaccount-env.eba-fqpipk8g.us-east-1.elasticbeanstalk.com/**")
 					.permitAll()
 				.antMatchers("/api/v1/cards/**", "/api/v1/accounts/**")
 					//.hasAnyRole("USER", "ADMIN")
