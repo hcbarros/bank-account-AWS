@@ -6,15 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import br.com.bankaccountapi.controllers.response.ResponseError;
 import br.com.bankaccountapi.models.Account;
 import br.com.bankaccountapi.services.auth.*;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -27,7 +21,6 @@ import org.junit.jupiter.api.Order;
 import org.springframework.http.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
