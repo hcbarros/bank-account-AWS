@@ -14,3 +14,7 @@ O acesso está livre apenas em "auth-controller":
 - Na região direita da tela clique no botao "Authorize" e digite Bearer {token}
 - A partir daí o uso dos serviços estará autorizado
 
+
+### Acesso Local:
+
+http://localhost:5000/swagger-ui/index.html
