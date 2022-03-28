@@ -39,8 +39,6 @@ class BankAccountApiApplicationTests {
 
     private HttpEntity<LoginRequest> httpEntity;
 
-    // https://www.baeldung.com/spring-boot-testing
-
 
     @Order(1)
     @Test
