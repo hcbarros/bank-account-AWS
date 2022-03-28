@@ -2,14 +2,9 @@ package br.com.bankaccountapi.models;
 
 import br.com.bankaccountapi.enums.ERole;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
-import javax.persistence.Column;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -23,6 +18,9 @@ public class Role {
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
 	private ERole name;
+
+	@ManyToMany(mappedBy = "roles")
+	private Set<User> users = new HashSet<>();
 
 
 	public Role() { }
@@ -47,4 +45,11 @@ public class Role {
 		this.name = name;
 	}
 
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
 }

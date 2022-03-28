@@ -47,6 +47,8 @@ public class DataLoader {
             roleStrings.add(ERole.ADMIN.name());
 
             authService.registerUser("henrique","henrique123", roleStrings);
+
+            authService.registerUser("joseabcd","jose1234", roleStrings);
         };
 
     }

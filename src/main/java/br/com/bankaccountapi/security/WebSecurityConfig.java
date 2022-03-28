@@ -77,8 +77,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 										"/swagger-resources/**",
 										"/swagger-ui/**",
 										"/h2-console/**",
-//						"/Projectbankaccount-env.eba-fqpipk8g.us-east-1.elasticbeanstalk.com/**",
-//						"/Projectbankaccount-env.eba-fqpipk8g.us-east-1.elasticbeanstalk.com",
 						"projectbankaccount-env.eba-fqpipk8g.us-east-1.elasticbeanstalk.com/**",
 						"projectbankaccount-env.eba-fqpipk8g.us-east-1.elasticbeanstalk.com")
 					.permitAll()
