@@ -5,6 +5,7 @@ import br.com.bankaccountapi.enums.Flag;
 import br.com.bankaccountapi.enums.TypeCard;
 import br.com.bankaccountapi.models.*;
 import br.com.bankaccountapi.repositories.RoleRepository;
+import br.com.bankaccountapi.repositories.UserRepository;
 import br.com.bankaccountapi.services.AccountService;
 import br.com.bankaccountapi.services.auth.AuthService;
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +23,8 @@ public class DataLoader {
     @Bean
     CommandLineRunner baseLoad(AuthService authService,
                                AccountService accountService,
-                               RoleRepository roleRepository) {
+                               RoleRepository roleRepository,
+                               UserRepository userRepository) {
 
         return args -> {
 
@@ -39,16 +41,18 @@ public class DataLoader {
             Set<Role> roles = new HashSet<>();
             roles.addAll(Arrays.asList(new Role(ERole.USER), new Role(ERole.ADMIN)));
 
-            roleRepository.saveAll(roles);
-
+            if(roleRepository.count() == 0) {
+                roleRepository.saveAll(roles);
+            }
 
             Set<String> roleStrings= new HashSet<>();
             roleStrings.add(ERole.USER.name());
             roleStrings.add(ERole.ADMIN.name());
 
-            authService.registerUser("henrique","henrique123", roleStrings);
-
-            authService.registerUser("joseabcd","jose1234", roleStrings);
+            if(!userRepository.existsByUsername("henrique")) {
+                authService.registerUser("henrique","henrique123", roleStrings);
+            }
+            
         };
 
     }
